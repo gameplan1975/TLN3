@@ -27,15 +27,15 @@ class PlayersController < ApplicationController
     @player.user_id = current_user.id
 
     if @player.save
-      redirect_to players_path
+      redirect_to homes_top_path, notice: "プレイヤー情報を登録しました"
     else
-      render :new
+      render :new, notice: "プレイヤー情報を登録できませんでした..."
     end
   end
     
   def update
     if @player.update(player_params)
-      redirect_to players_path
+      redirect_to players_path, notice: "プレイヤー情報を変更しました"
     else
       render :edit
     end
