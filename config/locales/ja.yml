@@ -28,3 +28,6 @@ ja:
         month: 発生月
         memo: うんちく
         Genres: ジャンル
+      genre:
+        name: ジャンル名
+        memo: 説明
