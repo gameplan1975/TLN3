@@ -1,0 +1,30 @@
+---
+ja:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'バリデーションに失敗しました: %{errors}'
+        restrict_dependent_destroy:
+          has_one: "%{record}が存在しているので削除できません"
+          has_many: "%{record}が存在しているので削除できません"
+    attributes:
+      user:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認）
+        created_at: 登録日時
+        updated_at: 更新日時
+        remember_me: ログインを記憶する
+      player:
+        game: ゲーム数
+        correct: 正解数
+        admin: 管理者
+        favorite_genre: 得意ジャンル
+        message: 他のユーザーに一言
+      question:
+        name: できごと名
+        year: 発生年
+        month: 発生月
+        memo: うんちく
+        Genres: ジャンル

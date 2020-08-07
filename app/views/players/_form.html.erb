@@ -1,0 +1,12 @@
+<%= form_with model: @player do |f| %>
+  <%= f.label :favorite_genre %><br>
+  <%= f.text_area :favorite_genre %><br><br>
+  <%= f.label :message %><br>
+  <%= f.text_area :message %><br><br>
+    <%= f.radio_button :admin, true %>
+    <%= f.label :admin, "Administrator" %>
+    <%= f.radio_button :admin, false %>
+    <%= f.label :admin, "Normal User"%><br><br>
+  <%= f.submit %>
+  <br>
+<% end %>

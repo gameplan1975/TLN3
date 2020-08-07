@@ -1,0 +1,8 @@
+<%= form_with model: @genre do |f| %>
+  <%= f.label :name %><br>
+  <%= f.text_field :name %><br>
+  <%= f.label :memo %><br>
+  <%= f.text_area :memo %><br>
+  <%= f.submit %>
+<% end %>
+<br>

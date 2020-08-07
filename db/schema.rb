@@ -10,10 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_07_013923) do
+ActiveRecord::Schema.define(version: 2020_08_07_062415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "genres", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.string "memo", default: "", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_genres_on_user_id"
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.boolean "admin", default: false, null: false
+    t.integer "game", default: 0, null: false
+    t.integer "correct", default: 0, null: false
+    t.string "message", limit: 100, default: "他のプレイヤーへ一言書いてください", null: false
+    t.string "favorite_genre", limit: 100, default: "得意なクイズジャンルを書いてください", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_players_on_user_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.integer "year", default: 2020, null: false
+    t.integer "month", default: 1, null: false
+    t.string "memo", default: "", null: false
+    t.boolean "playable", default: false, null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "genre_id"
+    t.index ["genre_id"], name: "index_questions_on_genre_id"
+    t.index ["user_id"], name: "index_questions_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -28,4 +63,5 @@ ActiveRecord::Schema.define(version: 2020_08_07_013923) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "questions", "genres"
 end
