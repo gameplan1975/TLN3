@@ -52,6 +52,6 @@ class QuestionsController < ApplicationController
   end
     
   def question_params
-    params.require(:question).permit(:name, :memo, :user_id, :genre_id, :year, :month)
+    params.require(:question).permit(:name, :memo, :user_id, :genre_id, :year, :month, :playable)
   end
 end

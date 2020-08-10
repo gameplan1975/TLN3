@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root "homes#top"
   get 'homes/top'
+  get 'games/prepare'
+  get 'games/result'
+  get 'games/play'
   resources :genres
   resources :questions
   resources :players

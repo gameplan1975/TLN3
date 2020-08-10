@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_07_062415) do
+ActiveRecord::Schema.define(version: 2020_08_10_085037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2020_08_07_062415) do
     t.integer "year", default: 2020, null: false
     t.integer "month", default: 1, null: false
     t.string "memo", default: "", null: false
-    t.boolean "playable", default: false, null: false
+    t.boolean "playable", default: true, null: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
