@@ -11,13 +11,19 @@
   <h5>ジャンル選択</h5>
   <%  @genres.each do |genre| %> 
     <div>
-    <%= f.radio_button :genre_id, genre.id %>
-  　<%= f.label :genre_id, genre.name %>
+      <%= f.radio_button :genre_id, genre.id %>
+    　<%= f.label :genre_id, genre.name %>
     </div>
   <% end %>
-  <br><br>
+  <br>
   <%= f.label :memo %><br>
-  <%= f.text_area :memo %><br><br>
+  <%= f.text_area :memo, size: "50x5"%><br>
+  <% if current_user.player.admin == true %>
+    <%= f.radio_button :playable, true %>
+    <%= f.label :playable, "公開" %>
+    <%= f.radio_button :playable, false %>
+    <%= f.label :playable, "公開中止"%><br>
+  <% end %>
   <%= f.submit %>
   <br>
 <% end %>

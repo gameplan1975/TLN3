@@ -1,10 +1,14 @@
-<h1>Show Question</h1>
-<p>できごと:
-<%= @question.name %></p>
+<h4><%= @question.name %> の詳細</h4>
+<br>
+<p>ジャンル:
+<%= @question.genre.name %></p>
 <p>起こった年月:
 <%= @question.year %> 年　<%= @question.month %>月</p>
-<p>うんちく:
-<%= @question.memo %></p>
+<p>うんちく:</p>
+<div class="border border-secondary rounded ">
+  <%= @question.memo %>
+</div>
+<br>
 <p>作成者: 
 <%= @question.user.name %></p>
 

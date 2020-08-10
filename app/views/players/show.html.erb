@@ -1,67 +1,29 @@
-<script>
-  audiojs.events.ready(function() {
-    var as = audiojs.createAll();
-  });
-</script>
-<div class="row">
-  <div class="col-5">
-    <h4><%= @player.user.name %>'s Profile</h4>
-    <p>User Name:
-    <%= @player.user.name %></p>
-    <div>
-      <span>Lank:</span>
-      <% if @player.game >= 100 %>
-        <span class="text-danger">Master!</span>
-      <% elsif @player.game >= 10 %>
-        <span class="text-success">Veteran</span>
-      <% elsif @player.game >= 5 %>
-        <span class="text-info">apprentice</span>
-      <% else %>
-        <span class="text-muted">Beginner</span>   
-      <% end %>
-      </span>
-    </div>
-    <p>Games: 
-    <%= @player.game %></p>
-    <p>Corrects: 
-    <%= @player.correct %></p>
-    <div class="card m-1">
-      <p>Favorite Genre: <p>
-      <%= @player.favorite_genre %>
-    </div>
-    <div class="card m-1">
-      <p>Message: </p>
-      <%= @player.message %>
-    </div>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">プレイヤー情報：<%= @player.user.name %></h5>
     <hr>
-    <%= link_to 'Edit', edit_player_path(@player), class: 'btn btn-primary' %>
-    <%= link_to 'Back', players_path, class: 'btn btn-primary' %>
-  </div>
-
-  <div　class="col-7" >
-    <h4>Created Questions</h4>
-    <P><%= @questions.count %> created</p>
-    <table class="table" >
-      <thead>
-        <tr>
-          <th>Question</th>
-          <th>Year/Month</th>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @questions.each do |question| %>
-          <tr>
-            <th><%= question.name %></th>
-            <th><p><%= question.year %>年<%= question.month %> 月</th>
-            <th><%= link_to 'show', question_path(question), class: 'btn btn-outline-primary btn-sm' %></th>
-            <th><%= link_to 'Edit', edit_question_path(question), class: 'btn btn-outline-info btn-sm'  %></th>
-            <th><%= link_to 'Destroy', question, method: :delete, class: 'btn btn-outline-danger btn-sm'  %></th>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <%= paginate @questions %>
-    <th><%= link_to 'New Question', new_question_path, class: 'btn btn-outline-info btn-sm' %></th>
+    <p class="card-text">
+    <% if @player.game >= 100 %>
+      <p class="text-danger">Lank: Master!</p>
+    <% elsif @player.game >= 10 %>
+      <p class="text-success">Lank: Veteran</p>
+    <% elsif @player.game >= 5 %>
+      <p class="text-info">Lank: apprentice</p>
+    <% else %>
+      <p class="text-muted">Lank: Beginner</p>   
+    <% end %>
+    <a>回答数：<%= @player.game %></a><br>
+    <a>正解数：<%= @player.correct %></a><br>
+    <a>問題作成数： <%= @player.user.questions.count %></a><br>
+    <a>得意ジャンル：<%= @player.favorite_genre %></a><br>
+    <a>ひとこと：<%= @player.message %></a><br>
+    </p>
   </div>
 </div>
+<br>
+<%= link_to 'ジャンル一覧', genres_path, class: 'btn btn-primary m-1' %>
+<%= link_to 'プレイヤー一覧', players_path, class: 'btn btn-primary m-1'  %>
+<%= link_to 'できごと一覧', questions_path, class: 'btn btn-primary m-1'  %>
+<%= link_to '伝言板を見る', root_path, class: 'btn btn-primary m-1' %>
+<%= link_to 'クイズに挑戦する！', root_path, class: 'btn btn-success m-1' %>
+<%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'btn btn-primary m-1'  %>

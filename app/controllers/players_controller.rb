@@ -1,6 +1,7 @@
 class PlayersController < ApplicationController
   before_action :set_player, only: [:show, :edit, :update, :destroy]
   before_action :default_date_setting, only: [:create]
+  before_action :authenticate_user!
 
   def index
     @players = Player.all.page(params[:page]).per(5)

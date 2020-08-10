@@ -1,44 +1,75 @@
 <h1>Time Line Network</h1>
 <p>welcome to this historic quiz site!</p>
-<% if user_signed_in? %>
-  <% if current_user.player == nil %>
-    <p>ユーザー登録ありがとうございます。続いてプレイヤー情報を作成してください。</P><br>
-    <%= link_to 'プレイヤー情報を作成する', new_player_path, class: 'btn btn-primary' %>
-  <% else %>
-    <div class="card">
-        <div class="card-body">
-        <h5 class="card-title">プレイヤー情報：<%= current_user.name %></h5>
-        <hr>
-        <p class="card-text">
-          <% if current_user.player.game >= 100 %>
-            <p class="text-danger">Lank: Master!</p>
-          <% elsif current_user.player.game >= 10 %>
-            <p class="text-success">Lank: Veteran</p>
-          <% elsif current_user.player.game >= 5 %>
-            <p class="text-info">Lank: apprentice</p>
-          <% else %>
-            <p class="text-muted">Lank: Beginner</p>   
-          <% end %>
-          <a>回答数：<%= current_user.player.game %></a><br>
-          <a>正解数：<%= current_user.player.correct %></a><br>
-          <a>問題作成数： 不明</a><br>
-          <a>得意ジャンル：<%= current_user.player.favorite_genre %></a><br>
-          <a>ひとこと：<%= current_user.player.message %></a><br>
-        </p>
+<div class="row">
+  <div class="col-sm " %>
+    <% if user_signed_in? %>
+      <% if current_user.player == nil %>
+        <p>ユーザー登録ありがとうございます。続いてプレイヤー情報を作成してください。</P><br>
+        <%= link_to 'プレイヤー情報を作成する', new_player_path, class: 'btn btn-primary' %>
+      <% else %>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">プレイヤー情報：<%= current_user.name %></h5>
+            <hr>
+            <p class="card-text">
+              <% if current_user.player.game >= 100 %>
+                <p class="text-danger">Lank: Master!</p>
+              <% elsif current_user.player.game >= 10 %>
+                <p class="text-success">Lank: Veteran</p>
+              <% elsif current_user.player.game >= 5 %>
+                <p class="text-info">Lank: apprentice</p>
+              <% else %>
+                <p class="text-muted">Lank: Beginner</p>   
+              <% end %>
+              <a>回答数：<%= current_user.player.game %></a><br>
+              <a>正解数：<%= current_user.player.correct %></a><br>
+              <a>問題作成数： <%= current_user.questions.count %></a><br>
+              <a>得意ジャンル：<%= current_user.player.favorite_genre %></a><br>
+              <a>ひとこと：<%= current_user.player.message %></a><br>
+            </p>
+          </div>
         </div>
-    </div>
+        <br>
+        <%= link_to 'ジャンル一覧', genres_path, class: 'btn btn-primary m-1' %>
+        <%= link_to 'プレイヤー一覧', players_path, class: 'btn btn-primary m-1'  %>
+        <%= link_to 'できごと一覧', questions_path, class: 'btn btn-primary m-1'  %>
+        <%= link_to '伝言板を見る', root_path, class: 'btn btn-primary m-1' %>
+        <%= link_to 'クイズに挑戦する！', root_path, class: 'btn btn-success m-1' %>
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'btn btn-primary m-1'  %>
+      <% end %>
+    <% else %>
+      <p>これは、身の回りのできごとの起こった年月を、古いものから新しいものに正しく並び替えられるかを競うクイズアプリです。</P>
+      <p>「面白そう！」と思った方は、ぜひお立ち寄りくださいませ</p>
+      <p>初めて遊ぶ方は「ユーザー登録」を、一度登録された方は「ログイン」を選んでください</p>
+      <%= link_to "ユーザー登録", new_user_registration_path, class: 'btn btn-primary m-1'%>
+      <%= link_to "ログイン", new_user_session_path, class: 'btn btn-primary m-1' %>
+    <% end %>
     <br>
-    <%= link_to 'ジャンル一覧', new_genre_path, class: 'btn btn-primary' %>
-    <%= link_to 'プレイヤー一覧', players_path, class: 'btn btn-primary'  %>
-    <%= link_to 'できごと一覧', questions_path, class: 'btn btn-primary'  %>
-    <%= link_to '伝言板を見る', root_path, class: 'btn btn-primary' %>
-    <%= link_to 'クイズに挑戦する！', root_path, class: 'btn btn-success' %>
-    <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'btn btn-primary'  %>
+  </div>
+  <% if user_signed_in? %>
+    <div class="col-sm ">
+      <h5><%= current_user.name %>が登録したできごと</h5>
+      <%= link_to 'できごと登録', new_question_path, class: 'btn btn-info m-1' %>
+      <table class="table" >
+        <thead>
+          <tr>
+            <th>できごと</th>
+            <th>発生年／月</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% current_user.questions.each do |question| %>
+            <tr>
+              <th><%= question.name %></th>
+              <th><p><%= question.year %>年<%= question.month %> 月</th>
+              <th><%= link_to '詳細', question_path(question), class: 'btn btn-outline-primary btn-sm' %></th>
+              <th><%= link_to '編集', edit_question_path(question), class: 'btn btn-outline-info btn-sm'  %></th>
+              <th><%= link_to '削除', question, method: :delete, class: 'btn btn-outline-danger btn-sm'  %></th>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   <% end %>
-<% else %>
-  <p>これは、身の回りのできごとの起こった年月を、古いものから新しいものに正しく並び替えられるかを競うクイズアプリです。</P>
-  <p>「面白そう！」と思った方は、ぜひお立ち寄りくださいませ</p>
-  <p>初めて遊ぶ方は「ユーザー登録」を、一度登録された方は「ログイン」を選んでください</p>
-  <%= link_to "ユーザー登録", new_user_registration_path, class: 'btn btn-primary'%>
-  <%= link_to "ログイン", new_user_session_path, class: 'btn btn-primary' %>
-<% end %>
+</div>
