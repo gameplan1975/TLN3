@@ -3,17 +3,23 @@
     <tbody>
     <% @genres.each do |genre| %>
       <tr>
-        <th><%= genre.name %></th>
-        <th><%= link_to '編集', edit_genre_path(genre), class: 'btn btn-outline-info btn-sm'  %></th>
-        <th><%= link_to '削除', genre, method: :delete, class: 'btn btn-outline-danger btn-sm'  %></th>
+        <th><h5 class="text-primary"><%= genre.name %></h5>
+        <%= genre.memo %></th>
+        <% if current_user.player.admin == true %>
+          <th><%= link_to '編集', edit_genre_path(genre), class: 'btn btn-outline-info btn-sm'  %></th>
+          <th><%= link_to '削除', genre, method: :delete, class: 'btn btn-outline-danger btn-sm'  %></th>
+        <% end %>
       </tr>
     <% end %>
     </tbody>
   </table>
   <%= paginate @genres %>
 <br>
-<%= link_to 'ジャンル作成', new_genre_path, class: 'btn btn-primary m-1' %>
+<% if current_user.player.admin == true %>
+  <%= link_to 'ジャンル登録', new_genre_path, class: 'btn btn-info m-1' %>
+  <%= link_to 'できごと一覧', questions_path, class: 'btn btn-primary m-1'  %>
+<% end %>
 <%= link_to 'プレイヤー一覧', players_path, class: 'btn btn-primary m-1'  %>
-<%= link_to 'できごと一覧', questions_path, class: 'btn btn-primary m-1'  %>
 <%= link_to '伝言板を見る', root_path, class: 'btn btn-primary m-1' %>
 <%= link_to 'クイズに挑戦する！', games_prepare_path, class: 'btn btn-success m-1' %>
+<%= link_to 'My Page', root_path, class: 'btn btn-primary m-1' %>

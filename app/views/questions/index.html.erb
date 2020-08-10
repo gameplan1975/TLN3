@@ -10,23 +10,22 @@
   </thead>
     <tbody>
       <% @questions.each do |question| %>
-        <% if current_user.player.admin == true || question.user_id == current_user.id %>
-          <tr>
-            <th><%= question.name %></th>
-            <th><p><%= question.year %>年<%= question.month %> 月</th>
-            <th><%= question.genre.name %></th>
-            <th><%= link_to '詳細', question_path(question), class: 'btn btn-outline-primary btn-sm' %></th>
-            <th><%= link_to '編集', edit_question_path(question), class: 'btn btn-outline-info btn-sm'  %></th>
-            <th><%= link_to '削除', question, method: :delete, class: 'btn btn-outline-danger btn-sm'  %></th>
-          </tr>
-        <% end %>
+        <tr>
+          <th><%= question.name %></th>
+          <th><p><%= question.year %>年<%= question.month %> 月</th>
+          <th><%= question.genre.name %></th>
+          <th><%= link_to '詳細', question_path(question), class: 'btn btn-outline-primary btn-sm' %></th>
+          <th><%= link_to '編集', edit_question_path(question), class: 'btn btn-outline-info btn-sm'  %></th>
+          <th><%= link_to '削除', question, method: :delete, class: 'btn btn-outline-danger btn-sm'  %></th>
+        </tr>
       <% end %>
     </tbody>
   </table>
   <%= paginate @questions %>
 <br>
-<%= link_to 'できごと登録', new_question_path, class: 'btn btn-primary m-1' %>
+<%= link_to 'できごと登録', new_question_path, class: 'btn btn-info m-1' %>
 <%= link_to 'ジャンル一覧', genres_path, class: 'btn btn-primary m-1' %>
 <%= link_to 'プレイヤー一覧', players_path, class: 'btn btn-primary m-1 '  %>
 <%= link_to '伝言板を見る', root_path, class: 'btn btn-primary m-1' %>
 <%= link_to 'クイズに挑戦する！', games_prepare_path, class: 'btn btn-success m-1' %>
+<%= link_to 'My Page', root_path, class: 'btn btn-primary m-1' %>

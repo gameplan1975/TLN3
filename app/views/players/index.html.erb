@@ -8,8 +8,10 @@
         <th>作成数</th>
         <% if current_user.player.admin == true %>
           <th>管理者</th>
+          <th colspan="3"></th>
+        <% else %>
+          <th colspan="1"></th>
         <% end %>
-        <th colspan="3"></th>
       </tr>
     </thead>
     <tbody>
@@ -23,8 +25,10 @@
             <th><%= player.admin %>
           <% end %>
           <th><%= link_to '詳細', player_path(player), class: 'btn btn-outline-info btn-sm' %></th>
-          <th><%= link_to '編集', edit_player_path(player), class: 'btn btn-outline-info btn-sm'  %></th>
-          <th><%= link_to '削除', player, method: :delete, class: 'btn btn-outline-danger btn-sm'  %></th>
+          <% if current_user.player.admin == true %>
+            <th><%= link_to '編集', edit_player_path(player), class: 'btn btn-outline-info btn-sm'  %></th>
+            <th><%= link_to '削除', player, method: :delete, class: 'btn btn-outline-danger btn-sm'  %></th>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
@@ -32,6 +36,9 @@
   <%= paginate @players %>
 <br>
 <%= link_to 'ジャンル一覧', genres_path, class: 'btn btn-primary m-1' %>
-<%= link_to 'できごと一覧', questions_path, class: 'btn btn-primary m-1'  %>
+<% if current_user.player.admin == true %>
+  <%= link_to 'できごと一覧', questions_path, class: 'btn btn-primary m-1'  %>
+<% end %>
 <%= link_to '伝言板を見る', root_path, class: 'btn btn-primary m-1' %>
 <%= link_to 'クイズに挑戦する！', games_prepare_path, class: 'btn btn-success m-1 ' %>
+<%= link_to 'My Page', root_path, class: 'btn btn-primary m-1' %>

@@ -38,6 +38,6 @@ class GenresController < ApplicationController
   end
   
   def genre_params
-    params.require(:genre).permit(:name)
+    params.require(:genre).permit(:name, :memo)
   end
   end
