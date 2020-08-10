@@ -1,6 +1,7 @@
 class GenresController < ApplicationController
   before_action :set_genre, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :admin_check, only: [:new, :create, :update, :edit, :destroy,]
 
   def index
     @genres = Genre.all.page(params[:page]).per(5)
@@ -8,6 +9,9 @@ class GenresController < ApplicationController
     
   def new
     @genre = Genre.new
+  end
+
+  def edit
   end
 
   def create
@@ -40,4 +44,10 @@ class GenresController < ApplicationController
   def genre_params
     params.require(:genre).permit(:name, :memo)
   end
+
+  def admin_check
+    if current_user.player.admin == false
+      redirect_to root_path, notice: "管理者しか実行できません"
+    end
   end
+end

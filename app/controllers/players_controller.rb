@@ -2,6 +2,7 @@ class PlayersController < ApplicationController
   before_action :set_player, only: [:show, :edit, :update, :destroy]
   before_action :default_date_setting, only: [:create]
   before_action :authenticate_user!
+  before_action :admin_check, only: [:edit, :destroy, :update]
 
   def index
     @players = Player.all.page(params[:page]).per(5)
@@ -58,5 +59,11 @@ class PlayersController < ApplicationController
 
   def default_date_setting
     #できれば初期設定はここでやりたい
-  end 
+  end
+
+  def admin_check
+    if current_user.player.admin == false
+      redirect_to root_path, notice: "管理者しか実行できません"
+    end
+  end
 end
