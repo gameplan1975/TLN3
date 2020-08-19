@@ -5,7 +5,8 @@
     <% @genres.each do |genre| %>
       <tr>
         <th><%= genre.name %></th>
-        <th><%= link_to 'Play!', games_play_path(:select_genre => genre), class: 'btn btn-success'  %></th>
+        <th><%= link_to 'easy!', games_play_path(:select_genre => genre), class: 'btn btn-success'  %></th>
+        <th><%= link_to 'normal!', games_play_a_path(:select_genre => genre), class: 'btn btn-success'  %></th>
       </tr>
     <% end %>
   </tbody>

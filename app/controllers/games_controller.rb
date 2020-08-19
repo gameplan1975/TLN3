@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!
-  
+
   def prepare
     @genres = Genre.all
   end
@@ -34,6 +34,30 @@ class GamesController < ApplicationController
       correct_count = @player.correct + 1
       @player.update_attribute(:correct, correct_count)
     end
+  end
+
+  def play_a
+    @category = params[:select_genre]
+    @genre = Genre.find_by(id: @category)
+    @questions = Question.where(genre_id: @category, playable: true).order("RANDOM()").limit(4)
+  end
+
+  def result_a
+    @selects = params[:content]
+    binding.irb
+    @select0 = @selects[0]
+    @select1 = @selects[1]
+    @select2 = @selects[2]
+    @select3 = @selects[3]
+    @question0 = Question.find_by(id: @select0)
+    @question1 = Question.find_by(id: @select1)
+    @question2 = Question.find_by(id: @select2)
+    @question3 = Question.find_by(id: @select3)
+
+    #ゲーム数の追加
+    @player = Player.find(current_user.player.id)
+    game_count = @player.game + 1
+    @player.update_attribute(:game, game_count)
   end
 
   private

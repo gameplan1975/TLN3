@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get 'games/prepare'
   get 'games/result'
   get 'games/play'
+  get 'games/play_a'
+  get 'games/result_a'
   resources :genres
   resources :questions
   resources :players
